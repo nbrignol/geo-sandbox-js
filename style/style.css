@@ -6,13 +6,24 @@ body {
 }
 
 h1 {
+	font-size: 1em;
 	background: black;
 	color: white;
 
-	padding: 0.5em;
-	margin: 0.5em;
+	padding: 15px;
+	margin: 15px;
+
 }
 
 h1 .version {
 	font-style: italic;
+}
+
+
+
+#myMap { 
+
+	border: 10px solid white;
+	margin: 15px;
+	height: 300px; 
 }
