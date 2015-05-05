@@ -7,3 +7,6 @@ Some WMTS servers :
 * http://tile.stamen.com/toner/{z}/{x}/{y}.png
 * http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg
 
+Leaflet documentation : 
+
+* http://leafletjs.com/reference.html

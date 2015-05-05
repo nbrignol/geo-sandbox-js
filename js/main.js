@@ -16,15 +16,28 @@ document.addEventListener('DOMContentLoaded', function(){
 	marker.bindPopup("Me.");
 	marker.addTo(map);
 
+	//accuracy circle
+	var circle = L.circle([0, 0], 0);
+	circle.bindPopup("Accuracy.");
+	circle.addTo(map);
+
 	function processPosition(event){
 		status.innerHTML = "Lat : " + event.coords.latitude + "° Long : " + event.coords.longitude + "° Precision : " + event.coords.accuracy + "m.";
 		marker.setLatLng( [event.coords.latitude, event.coords.longitude] );
+		
+		circle.setLatLng( [event.coords.latitude, event.coords.longitude] );
+		circle.setRadius(event.coords.accuracy);
 
+		if ( ! map.getBounds().contains( [event.coords.latitude, event.coords.longitude] ) ) {
+			map.setView([event.coords.latitude, event.coords.longitude], 6);
+		}
+		
 	}
 
 	function errorPosition(){
 		status.innerHTML = "No position.";
 		marker.setLatLng( [0,0] );
+		map.setView([0, 0], 3);
 	}
 
 	//location notifications
