@@ -19,7 +19,19 @@ h1 .version {
 	font-style: italic;
 }
 
+#status, #infos {
+	padding: 15px;
+	margin: 15px;
 
+	background: white; 
+
+}
+
+.win {
+	color: green;
+	font-weight: bold;
+	font-size: 1.1em;
+}
 
 #myMap { 
 

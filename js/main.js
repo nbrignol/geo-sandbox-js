@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', function(){
+
+	//var target = {"name": "Paris", "latitude" : 48.856578, "longitude" : 2.351828};
+	//var target = {"name": "Lyon", "latitude" : 45.759723, "longitude" : 4.842223};
+	var target = {"name": "Marseille", "latitude" : 43.296346, "longitude" : 5.369889}; 
 	
 	var status = document.querySelector("#status");
+	var infos  = document.querySelector("#infos");
 
 	//map 
 	var map = L.map('myMap');
@@ -23,15 +28,19 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	function processPosition(event){
 		status.innerHTML = "Lat : " + event.coords.latitude + "° Long : " + event.coords.longitude + "° Precision : " + event.coords.accuracy + "m.";
-		marker.setLatLng( [event.coords.latitude, event.coords.longitude] );
-		
-		circle.setLatLng( [event.coords.latitude, event.coords.longitude] );
+		var coords = [event.coords.latitude, event.coords.longitude] ;
+
+		marker.setLatLng( coords );
+		circle.setLatLng( coords );
 		circle.setRadius(event.coords.accuracy);
 
-		if ( ! map.getBounds().contains( [event.coords.latitude, event.coords.longitude] ) ) {
-			map.setView([event.coords.latitude, event.coords.longitude], 6);
+		if ( ! map.getBounds().contains( coords ) ) {
+			map.setView(coords, 6);
 		}
-		
+
+		var distanceTarget = geoDistance(target.latitude, target.longitude, event.coords.latitude, event.coords.longitude);
+		infos.innerHTML = "Distance from " + target.name + " : " + distanceTarget + "km.";
+
 	}
 
 	function errorPosition(){
