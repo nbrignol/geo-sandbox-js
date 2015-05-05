@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
 
+	var distanceMax = 100; //km
+
 	//var target = {"name": "Paris", "latitude" : 48.856578, "longitude" : 2.351828};
 	//var target = {"name": "Lyon", "latitude" : 45.759723, "longitude" : 4.842223};
 	var target = {"name": "Marseille", "latitude" : 43.296346, "longitude" : 5.369889}; 
@@ -15,6 +17,15 @@ document.addEventListener('DOMContentLoaded', function(){
 	var mapPatternUrl = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var tileLayer = L.tileLayer(mapPatternUrl);
 	tileLayer.addTo(map);
+
+	//target marker 
+	var targetMarker = L.marker([target.latitude, target.longitude]);
+	targetMarker.bindPopup(target.name);
+	targetMarker.addTo(map);
+
+	//target  circle
+	var targetCircle = L.circle([target.latitude, target.longitude], distanceMax * 1000, {fillColor: "green", color: "green"});
+	targetCircle.addTo(map);
 
 	//marker
 	var marker = L.marker([0, 0]);
@@ -35,12 +46,17 @@ document.addEventListener('DOMContentLoaded', function(){
 		circle.setRadius(event.coords.accuracy);
 
 		if ( ! map.getBounds().contains( coords ) ) {
-			map.setView(coords, 6);
+			map.panTo(coords);
 		}
 
 		var distanceTarget = geoDistance(target.latitude, target.longitude, event.coords.latitude, event.coords.longitude);
+		distanceTarget = round(distanceTarget);
+
 		infos.innerHTML = "Distance from " + target.name + " : " + distanceTarget + "km.";
 
+		if (distanceTarget < distanceMax) {
+			infos.innerHTML += "<span class='win'>You win !</span>";
+		} 
 	}
 
 	function errorPosition(){

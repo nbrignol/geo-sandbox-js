@@ -18,3 +18,7 @@ function geoDistance(lat1, lon1, lat2, lon2) {
 function deg2rad(deg) {
 	return deg * (Math.PI/180)
 }
+
+function round(floatValue) {
+	return Math.round(floatValue * 100) / 100;
+}
